@@ -1,6 +1,9 @@
 {
   "name": "my-app",
   "version": "0.0.0",
+  "engines": {
+    "node": "24.19.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,4 +32,5 @@
     "typescript": "~6.0.2",
     "vitest": "^4.0.8"
   }
+  
 }
