@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  <h1>Books</h1>
+
+  @if (books.length > 0) {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Published Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (book of books; track book.id) {
+          <tr>
+            <td>{{ book.title }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.publishedDate | date }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  } @else {
+    <p>No books yet.</p>
+  }
+</div>
