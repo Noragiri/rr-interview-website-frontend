@@ -1,0 +1,52 @@
+<div class="container mt-4">
+  <h1>My Quotes</h1>
+
+  <div class="input-group mb-4">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Add a new quote..."
+      [(ngModel)]="newQuoteText"
+      (keyup.enter)="onAdd()"
+    />
+    <button class="btn btn-primary" (click)="onAdd()">
+      <fa-icon [icon]="faPlus"></fa-icon> Add
+    </button>
+  </div>
+
+  @if (quotes.length === 0) {
+    <p>No quotes yet. Add one above.</p>
+  }
+
+  <ul class="list-group">
+    @for (quote of quotes; track quote.id) {
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        @if (editingId === quote.id) {
+          <input
+            type="text"
+            class="form-control me-2"
+            [(ngModel)]="editingText"
+          />
+          <div>
+            <button class="btn btn-sm btn-success me-1" (click)="saveEdit(quote)">
+              <fa-icon [icon]="faSave"></fa-icon>
+            </button>
+            <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">
+              <fa-icon [icon]="faTimes"></fa-icon>
+            </button>
+          </div>
+        } @else {
+          <span>{{ quote.text }}</span>
+          <div>
+            <button class="btn btn-sm btn-secondary me-1" (click)="startEdit(quote)">
+              <fa-icon [icon]="faEdit"></fa-icon>
+            </button>
+            <button class="btn btn-sm btn-danger" (click)="onDelete(quote.id)">
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </div>
+        }
+      </li>
+    }
+  </ul>
+</div>
