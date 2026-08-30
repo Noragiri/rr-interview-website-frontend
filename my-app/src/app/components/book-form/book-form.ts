@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BookService } from '../../services/book';
+import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-book-form',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, FontAwesomeModule],
   templateUrl: './book-form.html',
   styleUrl: './book-form.css',
 })
@@ -14,9 +16,10 @@ export class BookFormComponent implements OnInit {
   title = '';
   author = '';
   publishedDate = '';
+  imageUrl: string | undefined = undefined;
   isEditMode = false;
   bookId: number | null = null;
-
+  faImage = faImage;
   constructor(
     private bookService: BookService,
     private router: Router,
@@ -40,12 +43,24 @@ export class BookFormComponent implements OnInit {
       });
     }
   }
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
 
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
   onSubmit(): void {
     const bookData = {
       title: this.title,
       author: this.author,
       publishedDate: new Date(this.publishedDate).toISOString(),
+      imageUrl: this.imageUrl,
     };
 
     if (this.isEditMode && this.bookId !== null) {

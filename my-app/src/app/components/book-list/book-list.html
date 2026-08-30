@@ -16,6 +16,31 @@
     @for (book of books; track book.id) {
       <div class="col">
         <div class="card h-100 shadow-sm">
+          @if (book.imageUrl) {
+            <div
+              style="
+                height: 200px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #f8f9fa;
+                overflow: hidden;
+              "
+            >
+              <img
+                [src]="book.imageUrl"
+                alt="{{ book.title }}"
+                style="max-height: 100%; max-width: 100%; object-fit: contain"
+              />
+            </div>
+          } @else {
+            <div
+              class="d-flex align-items-center justify-content-center bg-light text-muted"
+              style="height: 200px"
+            >
+              <fa-icon [icon]="faImage" size="3x"></fa-icon>
+            </div>
+          }
           <div class="card-body">
             <h5 class="card-title">{{ book.title }}</h5>
             <h6 class="card-subtitle mb-2 text-muted">{{ book.author }}</h6>

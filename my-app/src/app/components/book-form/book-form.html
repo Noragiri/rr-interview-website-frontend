@@ -37,7 +37,27 @@
         required
       />
     </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">Book Cover Image</label>
+      <input
+        type="file"
+        id="image"
+        class="form-control"
+        accept="image/*"
+        (change)="onFileSelected($event)"
+      />
 
+      @if (imageUrl) {
+        <img [src]="imageUrl" alt="Preview" class="img-thumbnail mt-2" style="max-height: 200px" />
+      } @else {
+        <div
+          class="border rounded d-flex align-items-center justify-content-center mt-2 text-muted"
+          style="height: 200px; background-color: #f8f9fa"
+        >
+          <fa-icon [icon]="faImage" size="3x"></fa-icon>
+        </div>
+      }
+    </div>
     <button type="submit" class="btn btn-primary" [disabled]="!bookForm.valid">Submit</button>
   </form>
 </div>

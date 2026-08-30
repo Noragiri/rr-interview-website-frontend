@@ -4,7 +4,7 @@ import { BookService } from '../../services/book';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit, faTrash, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth';
 
 @Component({
@@ -19,6 +19,7 @@ export class BookListComponent implements OnInit {
   faPlus = faPlus;
   faEdit = faEdit;
   faTrash = faTrash;
+  faImage = faImage;
   constructor(
     private bookService: BookService,
     private authService: AuthService,
