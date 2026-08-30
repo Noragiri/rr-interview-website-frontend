@@ -9,9 +9,9 @@ import { authGuard } from './guards/auth-guard';
 export const routes: Routes = [
   { path: '', component: BookListComponent },
   { path: 'books', component: BookListComponent },
-  { path: 'books/new', component: BookFormComponent },
-  { path: 'books/edit/:id', component: BookFormComponent },
+  { path: 'books/new', component: BookFormComponent, canActivate: [authGuard] },
+  { path: 'books/edit/:id', component: BookFormComponent, canActivate: [authGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'quotes', component: QuoteListComponent, canActivate: [authGuard]},
+  { path: 'quotes', component: QuoteListComponent, canActivate: [authGuard] },
 ];
