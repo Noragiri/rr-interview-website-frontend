@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-book-list',
@@ -18,8 +19,14 @@ export class BookListComponent implements OnInit {
   faPlus = faPlus;
   faEdit = faEdit;
   faTrash = faTrash;
-  constructor(private bookService: BookService) {}
+  constructor(
+    private bookService: BookService,
+    private authService: AuthService,
+  ) {}
 
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
   ngOnInit(): void {
     this.bookService.getBooks().subscribe({
       next: (data) => (this.books = data),

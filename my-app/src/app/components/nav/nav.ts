@@ -7,8 +7,11 @@ import {
   faRightFromBracket,
   faRightToBracket,
   faUserPlus,
+  faSun,
+  faMoon,
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth';
+import { ThemeService } from '../../services/theme';
 
 @Component({
   selector: 'app-nav',
@@ -23,10 +26,13 @@ export class NavComponent {
   faLogout = faRightFromBracket;
   faLogin = faRightToBracket;
   faRegister = faUserPlus;
+  faSun = faSun;
+  faMoon = faMoon;
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    public themeService: ThemeService,
   ) {}
 
   get isLoggedIn(): boolean {

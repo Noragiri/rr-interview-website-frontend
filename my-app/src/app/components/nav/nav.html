@@ -1,6 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav
+  class="navbar navbar-expand-lg"
+  [class.navbar-dark]="themeService.isDarkMode()"
+  [class.navbar-light]="!themeService.isDarkMode()"
+  [class.bg-dark]="themeService.isDarkMode()"
+  [class.bg-light]="!themeService.isDarkMode()"
+>
   <div class="container">
-    <a class="navbar-brand" routerLink="/books">Redriver Test</a>
+    <a class="navbar-brand" routerLink="/books">Bookish</a>
 
     <button
       class="navbar-toggler"
@@ -34,9 +40,7 @@
           </li>
         } @else {
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login">
-              <fa-icon [icon]="faLogin"></fa-icon> Login
-            </a>
+            <a class="nav-link" routerLink="/login"> <fa-icon [icon]="faLogin"></fa-icon> Login </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/register">
@@ -44,6 +48,28 @@
             </a>
           </li>
         }
+        <li class="nav-item d-flex align-items-center mx-2">
+          <div class="form-check form-switch d-flex align-items-center mb-0">
+            <fa-icon
+              [icon]="faSun"
+              class="me-1"
+              [style.color]="themeService.isDarkMode() ? '#f39c12' : '#fd7e14'"
+            ></fa-icon>
+            <input
+              class="form-check-input mx-1"
+              type="checkbox"
+              role="switch"
+              id="themeSwitch"
+              [checked]="themeService.isDarkMode()"
+              (change)="themeService.toggleTheme()"
+            />
+            <fa-icon
+              [icon]="faMoon"
+              class="me-1"
+              [style.color]="themeService.isDarkMode() ? '#adb5bd' : '#495057'"
+            ></fa-icon>
+          </div>
+        </li>
       </ul>
     </div>
   </div>

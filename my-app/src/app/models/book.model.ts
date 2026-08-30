@@ -1,5 +1,5 @@
 export interface Book {
-  id: number; // Required property for the book's unique identifier
+  id: number;
   title: string;
   author: string;
   publishedDate: string;
