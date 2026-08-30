@@ -9,6 +9,10 @@ export class ThemeService {
 
   private getInitialTheme(): boolean {
     const saved = localStorage.getItem(this.storageKey);
+
+    if (saved === null) {
+      return true; // default to dark mode for first-time visitors
+    }
     return saved === 'dark';
   }
 
