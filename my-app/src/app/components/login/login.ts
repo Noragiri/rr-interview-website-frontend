@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 
@@ -14,18 +14,24 @@ export class LoginComponent {
   username = '';
   password = '';
   errorMessage = '';
+  returnUrl = '/books';
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
+
+  ngOnInit(): void {
+    this.returnUrl = this.route.snapshot.queryParamMap.get('returnUrl') || '/books';
+  }
 
   onSubmit(): void {
     this.errorMessage = '';
 
     this.authService.login({ username: this.username, password: this.password }).subscribe({
       next: () => {
-        this.router.navigate(['/books']);
+        this.router.navigate([this.returnUrl]);
       },
       error: (err) => {
         this.errorMessage = 'Invalid username or password.';
