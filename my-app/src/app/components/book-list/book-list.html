@@ -19,10 +19,13 @@
             <td>{{ book.author }}</td>
             <td>{{ book.publishedDate | date }}</td>
             <td>
-  <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-secondary">
-    <fa-icon [icon]="faEdit"></fa-icon> Edit
-  </a>
-</td>
+              <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-secondary">
+                <fa-icon [icon]="faEdit"></fa-icon> Edit
+              </a>
+              <button (click)="onDelete(book.id)" class="btn btn-sm btn-danger">
+                <fa-icon [icon]="faTrash"></fa-icon> Delete
+              </button>
+            </td>
           </tr>
         }
       </tbody>
