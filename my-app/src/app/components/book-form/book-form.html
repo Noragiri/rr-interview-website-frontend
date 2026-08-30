@@ -1,5 +1,5 @@
 <div class="container mt-4">
-  <h1>Add New Book</h1>
+  <h1>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h1>
 
   <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
     <div class="mb-3">

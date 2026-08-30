@@ -18,6 +18,11 @@
             <td>{{ book.title }}</td>
             <td>{{ book.author }}</td>
             <td>{{ book.publishedDate | date }}</td>
+            <td>
+  <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-secondary">
+    <fa-icon [icon]="faEdit"></fa-icon> Edit
+  </a>
+</td>
           </tr>
         }
       </tbody>

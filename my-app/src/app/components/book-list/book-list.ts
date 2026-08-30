@@ -4,7 +4,7 @@ import { BookService } from '../../services/book';
 import { DatePipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-book-list',
@@ -16,7 +16,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 export class BookListComponent implements OnInit {
   books: Book[] = [];
   faPlus = faPlus;
-
+  faEdit = faEdit;
   constructor(private bookService: BookService) {}
 
   ngOnInit(): void {

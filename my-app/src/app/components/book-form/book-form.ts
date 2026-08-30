@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { BookService } from '../../services/book';
 
@@ -10,26 +10,55 @@ import { BookService } from '../../services/book';
   templateUrl: './book-form.html',
   styleUrl: './book-form.css',
 })
-export class BookFormComponent {
+export class BookFormComponent implements OnInit {
   title = '';
   author = '';
   publishedDate = '';
+  isEditMode = false;
+  bookId: number | null = null;
 
   constructor(
     private bookService: BookService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
 
+  ngOnInit(): void {
+    const idParam = this.route.snapshot.paramMap.get('id');
+
+    if (idParam) {
+      this.isEditMode = true;
+      this.bookId = Number(idParam);
+
+      this.bookService.getBook(this.bookId).subscribe({
+        next: (book) => {
+          this.title = book.title;
+          this.author = book.author;
+          this.publishedDate = book.publishedDate.substring(0, 10); // trims to YYYY-MM-DD for the date input
+        },
+        error: (err) => console.error('Failed to load book', err),
+      });
+    }
+  }
+
   onSubmit(): void {
-    const newBook = {
+    const bookData = {
       title: this.title,
       author: this.author,
       publishedDate: new Date(this.publishedDate).toISOString(),
     };
 
-    this.bookService.createBook(newBook).subscribe({
-      next: () => this.router.navigate(['/books']),
-      error: (err) => console.error('Failed to create book', err),
-    });
+    if (this.isEditMode && this.bookId !== null) {
+      const updatedBook = { id: this.bookId, ...bookData };
+      this.bookService.updateBook(this.bookId, updatedBook).subscribe({
+        next: () => this.router.navigate(['/books']),
+        error: (err) => console.error('Failed to update book', err),
+      });
+    } else {
+      this.bookService.createBook(bookData).subscribe({
+        next: () => this.router.navigate(['/books']),
+        error: (err) => console.error('Failed to create book', err),
+      });
+    }
   }
 }
