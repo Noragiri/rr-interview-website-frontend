@@ -1,9 +1,9 @@
 <div class="container mt-4">
-  <h1>{{ isEditMode ? 'Edit Book' : 'Add New Book' }}</h1>
+  <h1>{{ isEditMode ? languageService.t('editBook') : languageService.t('addBook') }}</h1>
 
   <form (ngSubmit)="onSubmit()" #bookForm="ngForm">
     <div class="mb-3">
-      <label for="title" class="form-label">Title</label>
+      <label for="title" class="form-label">{{ languageService.t('title') }}</label>
       <input
         type="text"
         id="title"
@@ -15,7 +15,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="author" class="form-label">Author</label>
+      <label for="author" class="form-label">{{ languageService.t('author') }}</label>
       <input
         type="text"
         id="author"
@@ -27,7 +27,7 @@
     </div>
 
     <div class="mb-3">
-      <label for="publishedDate" class="form-label">Published Date</label>
+      <label for="publishedDate" class="form-label">{{ languageService.t('publishedDate') }}</label>
       <input
         type="date"
         id="publishedDate"
@@ -38,7 +38,7 @@
       />
     </div>
     <div class="mb-3">
-      <label for="image" class="form-label">Book Cover Image</label>
+      <label for="image" class="form-label">{{ languageService.t('bookCoverImage') }}</label>
       <input
         type="file"
         id="image"
@@ -58,6 +58,8 @@
         </div>
       }
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!bookForm.valid">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!bookForm.valid">
+      {{ languageService.t('submit') }}
+    </button>
   </form>
 </div>

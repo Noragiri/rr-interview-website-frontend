@@ -1,15 +1,15 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1>Books</h1>
+    <h1>{{ languageService.t('books') }}</h1>
     @if (isLoggedIn) {
       <a routerLink="/books/new" class="btn btn-primary">
-        <fa-icon [icon]="faPlus"></fa-icon> Add New Book
+        <fa-icon [icon]="faPlus"></fa-icon> {{ languageService.t('addBook') }}
       </a>
     }
   </div>
 
   @if (books.length === 0) {
-    <p class="text-muted">No books yet. Add one to get started.</p>
+    <p class="text-muted">{{ languageService.t('noBooksYet') }}</p>
   }
 
   <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -51,10 +51,10 @@
           @if (isLoggedIn) {
             <div class="card-footer bg-transparent d-flex justify-content-end gap-2">
               <a [routerLink]="['/books/edit', book.id]" class="btn btn-sm btn-outline-secondary">
-                <fa-icon [icon]="faEdit"></fa-icon> Edit
+                <fa-icon [icon]="faEdit"></fa-icon> {{ languageService.t('edit') }}
               </a>
               <button (click)="onDelete(book.id)" class="btn btn-sm btn-outline-danger">
-                <fa-icon [icon]="faTrash"></fa-icon> Delete
+                <fa-icon [icon]="faTrash"></fa-icon> {{ languageService.t('delete') }}
               </button>
             </div>
           }

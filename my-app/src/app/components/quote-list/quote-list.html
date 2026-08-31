@@ -1,21 +1,21 @@
 <div class="container mt-4">
-  <h1>My Quotes</h1>
+  <h1>{{ languageService.t('myQuotes') }}</h1>
 
   <div class="input-group mb-4">
     <input
       type="text"
       class="form-control"
-      placeholder="Add a new quote..."
+      placeholder="{{ languageService.t('addNewQuote') }}"
       [(ngModel)]="newQuoteText"
       (keyup.enter)="onAdd()"
     />
     <button class="btn btn-primary" (click)="onAdd()">
-      <fa-icon [icon]="faPlus"></fa-icon> Add
+      <fa-icon [icon]="faPlus"></fa-icon> {{ languageService.t('add') }}
     </button>
   </div>
 
   @if (quotes.length === 0) {
-    <p>No quotes yet. Add one above.</p>
+    <p>{{ languageService.t('noQuotesYet') }}</p>
   }
 
   <ul class="list-group">

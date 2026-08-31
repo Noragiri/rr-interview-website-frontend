@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth';
 import { ThemeService } from '../../services/theme';
-
+import { LanguageService, Lang } from '../../services/language';
 @Component({
   selector: 'app-nav',
   standalone: true,
@@ -33,7 +33,12 @@ export class NavComponent {
     private authService: AuthService,
     private router: Router,
     public themeService: ThemeService,
+    public languageService: LanguageService,
   ) {}
+
+  changeLang(lang: Lang): void {
+    this.languageService.setLang(lang);
+  }
 
   get isLoggedIn(): boolean {
     return this.authService.isLoggedIn();

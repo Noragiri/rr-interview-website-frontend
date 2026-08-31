@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BookService } from '../../services/book';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { LanguageService } from '../../services/language';
 @Component({
   selector: 'app-book-form',
   standalone: true,
@@ -24,6 +24,7 @@ export class BookFormComponent implements OnInit {
     private bookService: BookService,
     private router: Router,
     private route: ActivatedRoute,
+    public languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
@@ -39,7 +40,7 @@ export class BookFormComponent implements OnInit {
           this.author = book.author;
           this.publishedDate = book.publishedDate.substring(0, 10); // trims to YYYY-MM-DD for the date input
         },
-        error: (err) => console.error('Failed to load book', err),
+        error: (err) => console.error(this.languageService.t('failedToLoadBook'), err),
       });
     }
   }
@@ -67,12 +68,12 @@ export class BookFormComponent implements OnInit {
       const updatedBook = { id: this.bookId, ...bookData };
       this.bookService.updateBook(this.bookId, updatedBook).subscribe({
         next: () => this.router.navigate(['/books']),
-        error: (err) => console.error('Failed to update book', err),
+        error: (err) => console.error(this.languageService.t('failedToUpdateBook'), err),
       });
     } else {
       this.bookService.createBook(bookData).subscribe({
         next: () => this.router.navigate(['/books']),
-        error: (err) => console.error('Failed to create book', err),
+        error: (err) => console.error(this.languageService.t('failedToCreateBook'), err),
       });
     }
   }

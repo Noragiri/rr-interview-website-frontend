@@ -6,7 +6,7 @@ import { RouterLink } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faEdit, faTrash, faImage } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth';
-
+import { LanguageService } from '../../services/language';
 @Component({
   selector: 'app-book-list',
   standalone: true,
@@ -23,6 +23,7 @@ export class BookListComponent implements OnInit {
   constructor(
     private bookService: BookService,
     private authService: AuthService,
+    public languageService: LanguageService,
   ) {}
 
   get isLoggedIn(): boolean {
@@ -31,11 +32,11 @@ export class BookListComponent implements OnInit {
   ngOnInit(): void {
     this.bookService.getBooks().subscribe({
       next: (data) => (this.books = data),
-      error: (err) => console.error('Failed to load books', err),
+      error: (err) => console.error(this.languageService.t('failedToLoadBooks'), err),
     });
   }
   onDelete(id: number): void {
-    if (!confirm('Are you sure you want to delete this book?')) {
+    if (!confirm(this.languageService.t('confirmDeleteBook'))) {
       return;
     }
 
@@ -43,7 +44,7 @@ export class BookListComponent implements OnInit {
       next: () => {
         this.books = this.books.filter((b) => b.id !== id);
       },
-      error: (err) => console.error('Failed to delete book', err),
+      error: (err) => console.error(this.languageService.t('failedToDeleteBook'), err),
     });
   }
 }

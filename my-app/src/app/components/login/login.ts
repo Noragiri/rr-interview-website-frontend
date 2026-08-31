@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
+import { LanguageService } from '../../services/language';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
+    public languageService: LanguageService,
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,7 @@ export class LoginComponent {
         this.router.navigate([this.returnUrl]);
       },
       error: (err) => {
-        this.errorMessage = 'Invalid username or password.';
+        this.errorMessage = this.languageService.t('invalidLogin');
       },
     });
   }

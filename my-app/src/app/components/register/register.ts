@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth';
-import { LanguageService } from '../../language';
+import { LanguageService } from '../../services/language';
 @Component({
   selector: 'app-register',
   standalone: true,

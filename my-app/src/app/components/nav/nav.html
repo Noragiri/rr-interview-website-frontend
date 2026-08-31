@@ -21,12 +21,12 @@
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
           <a class="nav-link" routerLink="/books" routerLinkActive="active">
-            <fa-icon [icon]="faBook"></fa-icon> Books
+            <fa-icon [icon]="faBook"></fa-icon> {{ languageService.t('books') }}
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/quotes" routerLinkActive="active">
-            <fa-icon [icon]="faQuoteLeft"></fa-icon> My Quotes
+            <fa-icon [icon]="faQuoteLeft"></fa-icon> {{ languageService.t('myQuotes') }}
           </a>
         </li>
       </ul>
@@ -35,16 +35,18 @@
         @if (isLoggedIn) {
           <li class="nav-item">
             <button class="btn btn-link nav-link" (click)="logout()">
-              <fa-icon [icon]="faLogout"></fa-icon> Logout
+              <fa-icon [icon]="faLogout"></fa-icon> {{ languageService.t('logout') }}
             </button>
           </li>
         } @else {
           <li class="nav-item">
-            <a class="nav-link" routerLink="/login"> <fa-icon [icon]="faLogin"></fa-icon> Login </a>
+            <a class="nav-link" routerLink="/login">
+              <fa-icon [icon]="faLogin"></fa-icon> {{ languageService.t('login') }}
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/register">
-              <fa-icon [icon]="faRegister"></fa-icon> Register
+              <fa-icon [icon]="faRegister"></fa-icon> {{ languageService.t('register') }}
             </a>
           </li>
         }
@@ -69,6 +71,15 @@
               [style.color]="themeService.isDarkMode() ? '#adb5bd' : '#495057'"
             ></fa-icon>
           </div>
+        </li>
+        <li class="nav-item dropdown mx-2">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            {{ languageService.currentLang() === 'en' ? '🇬🇧 EN' : '🇸🇪 SV' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" (click)="changeLang('en')">🇬🇧 English</a></li>
+            <li><a class="dropdown-item" (click)="changeLang('sv')">🇸🇪 Svenska</a></li>
+          </ul>
         </li>
       </ul>
     </div>

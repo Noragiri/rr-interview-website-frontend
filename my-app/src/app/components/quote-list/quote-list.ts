@@ -4,6 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faEdit, faTrash, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Quote } from '../../models/quote.model';
 import { QuoteService } from '../../services/quote';
+import { LanguageService } from '../../services/language';
 
 @Component({
   selector: 'app-quote-list',
@@ -24,7 +25,10 @@ export class QuoteListComponent implements OnInit {
   faSave = faSave;
   faTimes = faTimes;
 
-  constructor(private quoteService: QuoteService) {}
+  constructor(
+    private quoteService: QuoteService,
+    public languageService: LanguageService,
+  ) {}
 
   ngOnInit(): void {
     this.loadQuotes();
@@ -33,7 +37,7 @@ export class QuoteListComponent implements OnInit {
   loadQuotes(): void {
     this.quoteService.getQuotes().subscribe({
       next: (data) => (this.quotes = data),
-      error: (err) => console.error('Failed to load quotes', err),
+      error: (err) => console.error(this.languageService.t('failedToLoadQuotes'), err),
     });
   }
 
@@ -45,7 +49,7 @@ export class QuoteListComponent implements OnInit {
         this.quotes.push(quote);
         this.newQuoteText = '';
       },
-      error: (err) => console.error('Failed to add quote', err),
+      error: (err) => console.error(this.languageService.t('failedToAddQuote'), err),
     });
   }
 
@@ -67,18 +71,18 @@ export class QuoteListComponent implements OnInit {
         quote.text = this.editingText;
         this.cancelEdit();
       },
-      error: (err) => console.error('Failed to update quote', err),
+      error: (err) => console.error(this.languageService.t('failedToUpdateQuote'), err),
     });
   }
 
   onDelete(id: number): void {
-    if (!confirm('Delete this quote?')) return;
+    if (!confirm(this.languageService.t('confirmDeleteQuote'))) return;
 
     this.quoteService.deleteQuote(id).subscribe({
       next: () => {
         this.quotes = this.quotes.filter((q) => q.id !== id);
       },
-      error: (err) => console.error('Failed to delete quote', err),
+      error: (err) => console.error(this.languageService.t('failedToDeleteQuote'), err),
     });
   }
 }
